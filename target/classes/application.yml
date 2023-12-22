@@ -1,0 +1,17 @@
+server:
+  error:
+    include-stacktrace: ALWAYS
+    include-binding-errors: ALWAYS
+spring:
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3303/bolsovirtual
+    password: 92470
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
