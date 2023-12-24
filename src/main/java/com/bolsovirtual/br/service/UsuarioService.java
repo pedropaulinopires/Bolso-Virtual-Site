@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UsuarioService{
@@ -33,15 +35,31 @@ public class UsuarioService{
     /**
      * Método responsável para verificar se o email existe
      * */
-    public ResponseEntity<Boolean> emailValido(String email){
+    public boolean emailValido(String email){
         Usuario usuario = usuarioRepository.buscarUsuarioPorEmail(email);
         boolean emailValido = true;
 
         if(usuario != null)
             emailValido = false;
 
-        return new ResponseEntity<>(emailValido, HttpStatus.OK);
+        return emailValido;
     }
-    
+
+    /**
+     * Métdo responsável por buscar usuário por id
+     * */
+    public UsuarioRequest buscarUsuarioPorId(UUID id) throws Exception {
+        Usuario usuario = usuarioRepository.findById(id).get();
+
+        if(usuario == null)
+            throw new Exception("Usuário não encontrado com base no Id.");
+
+        UsuarioRequest usuarioRequest = new UsuarioRequest();
+        usuarioRequest.buildProject(usuario);
+
+        Usuario usuario1 = usuarioRepository.buscarUsuarioPorEmail("pedrohenrique92470@gmail.com");
+        System.out.println(usuario1);
+        return  usuarioRequest;
+    }
 
 }
