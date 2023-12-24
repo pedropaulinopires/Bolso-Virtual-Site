@@ -40,7 +40,6 @@ public class UsuarioRequest {
     @Size(min = 8, message = "A senha precisa ter no mínimo 8 caracteres")
     private String senha;
 
-    @NotNull(message = "É necessário informar o sexo")
     private OpcaoSexoEnum sexo;
 
     @NotNull(message = "É necessário informar uma data de nascimento")
