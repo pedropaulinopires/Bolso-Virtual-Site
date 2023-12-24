@@ -17,15 +17,17 @@ public class UsuarioService{
 
     private final IUsuarioRepository usuarioRepository;
     private final UsuarioValidation usuarioValidation;
+    private final EmailService emailService;
 
     /**
      * Método responsável para cadastrar o usuário
      * */
-    public ResponseEntity<UsuarioRequest> criarUsuario(UsuarioRequest request) throws Exception {
+    public UsuarioRequest criarUsuario(UsuarioRequest request) throws Exception {
         usuarioValidation.validarUsuarioParaCadastro(request);
         Usuario usuarioCriado = usuarioRepository.save(request.buildCreate());
         request.buildProject(usuarioCriado);
-        return new ResponseEntity<>(request, HttpStatus.CREATED);
+        emailService.sendEmail(usuarioCriado);
+        return request;
     }
 
     /**

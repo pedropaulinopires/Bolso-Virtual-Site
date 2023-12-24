@@ -25,11 +25,11 @@ public class UsuarioRequest {
     private UUID id;
 
     @NotBlank(message = "É necessário informar o nome")
-    @Min(value = 3, message = "O nome precisa ter no mínimo 3 caracteres")
+    @Size(min = 3, message = "O nome precisa ter no mínimo 3 caracteres")
     private  String nome;
 
     @NotBlank(message = "É necessário informar o sobrenome")
-    @Min(value = 3, message = "O sobrenome precisa ter no mínimo 3 caracteres")
+    @Size(min = 3, message = "O sobrenome precisa ter no mínimo 3 caracteres")
     private String sobrenome;
 
     @NotBlank(message = "É necessário informar a email")
@@ -37,13 +37,13 @@ public class UsuarioRequest {
     private String email;
 
     @NotBlank(message = "É necessário informar a senha")
-    @Min(value = 3, message = "A senha precisa ter no mínimo 8 caracteres")
+    @Size(min = 8, message = "A senha precisa ter no mínimo 8 caracteres")
     private String senha;
 
     @NotNull(message = "É necessário informar o sexo")
     private OpcaoSexoEnum sexo;
 
-    @NotBlank(message = "É necessário informar uma data de nascimento")
+    @NotNull(message = "É necessário informar uma data de nascimento")
     @Past(message = "A data de nascimento deve ser anterior à data atual")
     private LocalDate dataNascimento;
 
@@ -77,13 +77,13 @@ public class UsuarioRequest {
         this.nome = entity.getNome();
         this.sobrenome = entity.getSobrenome();
         this.email = entity.getEmail();
-        //this.senha = entity.getSenha() não exibo a senha por motivo de segurança do usuário
+        this.senha = null; // não exibo a senha por motivo de segurança do usuário
         this.sexo = entity.getSexo();
         this.dataNascimento = entity.getDataNascimento();
         this.dataExclusao = entity.getDataExclusao();
-        this.codigoVerificacao = entity.getCodigoVerificacao();
-        this.dataCodigoVerificacao = entity.getDataCodigoVerificacao();
-
+        this.codigoVerificacao = 000000; // não exibo por motivo de segurança
+        this.dataCodigoVerificacao = null;  // não exibo por motivo de segurança
+        this.statusVerificacao = entity.getStatusVerificacao();
     }
 
     private int gerarCodigoVerificao(){
