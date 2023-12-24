@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -50,4 +51,14 @@ public class Usuario {
     private LocalDateTime dataCodigoVerificacao;
 
     private StatusVerificacaoUsuarioEnum statusVerificacao;
+
+
+
+    public void gerarNovoCodigoVerificacao(){
+        Random random = new Random();
+        int codeNumber = random.nextInt(999999);
+
+        this.codigoVerificacao = codeNumber;
+        this.dataCodigoVerificacao = LocalDateTime.now();
+    }
 }

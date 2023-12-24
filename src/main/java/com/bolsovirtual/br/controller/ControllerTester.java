@@ -35,9 +35,15 @@ public class ControllerTester {
     }
 
     @GetMapping("/buscarPorId/{id}")
-    public ResponseEntity<UsuarioRequest> verificarCodigo(@PathVariable String id) throws Exception {
+    public ResponseEntity<UsuarioRequest> buscarPorId(@PathVariable String id) throws Exception {
         UsuarioRequest usuarioRequest = usuarioService.buscarUsuarioPorId(UUID.fromString(id));
         return new ResponseEntity<>(usuarioRequest, HttpStatus.OK);
+    }
+
+    @GetMapping("/gerarNovoCodigo/{id}")
+    public ResponseEntity<Void> gerarNovoCodigo(@PathVariable String id) throws Exception {
+        usuarioVerificacaoService.gerarNovoCodigoVerificacaoUsuario(UUID.fromString(id));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -11,6 +11,6 @@ import java.util.UUID;
 @Repository
 public interface IUsuarioRepository extends JpaRepository<Usuario, UUID> {
 
-    @Query("SELECT u FROM Usuario u where LOWER(u.email) LIKE LOWER('%:email%')")
+    @Query("SELECT u FROM Usuario u where LOWER(u.email)  LIKE CONCAT('%', LOWER(:email), '%')")
     Usuario buscarUsuarioPorEmail(@Param("email") String email);
 }

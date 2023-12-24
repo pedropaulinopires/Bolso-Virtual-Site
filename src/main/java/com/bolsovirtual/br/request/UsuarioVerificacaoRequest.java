@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 public class UsuarioVerificacaoRequest {
 
-    @NotEmpty(message = "É necessário o Id do usuário para verificar o código")
+    @NotNull(message = "É necessário o Id do usuário para verificar o código")
     private UUID id;
 
     @NotNull(message = "É necessário informar o código de verificação")
