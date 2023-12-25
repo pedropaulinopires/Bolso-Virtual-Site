@@ -1,12 +1,17 @@
 package com.bolsovirtual.br.service;
 
 import com.bolsovirtual.br.domain.Usuario;
+import com.bolsovirtual.br.enums.StatusUsuarioLogado;
 import com.bolsovirtual.br.exception.BadRequestException;
 import com.bolsovirtual.br.repository.IUsuarioRepository;
 import com.bolsovirtual.br.request.UsuarioRequest;
 import com.bolsovirtual.br.validation.UsuarioValidation;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 @Service
@@ -16,6 +21,7 @@ public class UsuarioService{
     private final IUsuarioRepository usuarioRepository;
     private final UsuarioValidation usuarioValidation;
     private final EmailService emailService;
+    private final JwtService jwtService;
 
     /**
      * Método responsável para cadastrar o usuário
@@ -53,4 +59,21 @@ public class UsuarioService{
         return  usuarioRequest;
     }
 
+    public StatusUsuarioLogado verificarUsuarioLogado(HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
+        String cookie = CookieService.getCookie(request);
+        if(cookie == null)
+            return StatusUsuarioLogado.SEM_AUTENTICACAO;
+
+        try {
+            String token = jwtService.lerToken(cookie);
+            return StatusUsuarioLogado.AUTENTICADO;
+        }catch (Exception e){
+            return StatusUsuarioLogado.EXPIROU;
+        }
+    }
+
+    public void salvarAutenticacaoUsuario(HttpServletResponse response,UUID id) throws UnsupportedEncodingException {
+        String value = jwtService.gerarToken(id);
+        CookieService.setCookie(response, value, 60 * 60 * 24);
+    }
 }

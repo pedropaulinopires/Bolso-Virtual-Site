@@ -4,6 +4,7 @@ import com.bolsovirtual.br.request.UsuarioRequest;
 import com.bolsovirtual.br.request.UsuarioVerificacaoRequest;
 import com.bolsovirtual.br.service.UsuarioService;
 import com.bolsovirtual.br.service.UsuarioVerificacaoService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,9 @@ public class ControllerTester {
     private final UsuarioVerificacaoService usuarioVerificacaoService;
 
     @PostMapping("/cadastro/usuario")
-    public ResponseEntity<UsuarioRequest> cadastroUsuario(@RequestBody @Valid UsuarioRequest request) throws Exception {
+    public ResponseEntity<UsuarioRequest> cadastroUsuario(@RequestBody @Valid UsuarioRequest request, HttpServletResponse response) throws Exception {
         UsuarioRequest usuarioRequest = usuarioService.criarUsuario(request);
+        usuarioService.salvarAutenticacaoUsuario(response, usuarioRequest.getId());
         return new ResponseEntity<>(usuarioRequest, HttpStatus.CREATED);
     }
 
