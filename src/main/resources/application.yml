@@ -9,9 +9,14 @@ spring:
       max-request-size: 2MB
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3303/bolsovirtual
+    url: jdbc:mysql://localhost:3306/bolsovirtual
     password: 92470
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+  mail:
+      host: smtp-relay.brevo.com
+      port: 587
+      username: bolsovirtual.com@gmail.com
+      password: T8fhn4k6Cxcy2KXA
