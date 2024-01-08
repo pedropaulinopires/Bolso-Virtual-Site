@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.UUID;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.stereotype.Service;
+
+@Service
 public class JwtService {
     private static final int TIME_EXPIRES = 86400000;
     public static final String TOKEN_PASSWORD = "41989389-700f-4349-9a1d-5eb5e98ffc8a";
