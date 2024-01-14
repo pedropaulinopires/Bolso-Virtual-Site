@@ -46,6 +46,6 @@ public class ControllerTester {
     public ResponseEntity<Void> gerarNovoCodigo(@PathVariable String id) throws Exception {
         usuarioVerificacaoService.gerarNovoCodigoVerificacaoUsuario(UUID.fromString(id));
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }    
 
 }

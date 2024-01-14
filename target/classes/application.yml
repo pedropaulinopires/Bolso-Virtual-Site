@@ -9,7 +9,7 @@ spring:
       max-request-size: 2MB
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3303/bolsovirtual
+    url: jdbc:mysql://localhost:3306/bolsovirtual
     password: 92470
   jpa:
     hibernate:
